@@ -90,48 +90,48 @@ namespace Fractals
         }
         public void drawJulia()
         {
-            // при каждой итерации, вычисляется znew = zold² + С
 
-            // вещественная  и мнимая части постоянной C
             double iReal, iImag;
-            // вещественная и мнимая части старой и новой
+
             double newReal, newImag, oldReal, oldImag;
-            // Можно увеличивать и изменять положение
+  
             int zoom = (int)f1.zoomJuliaNumericUpDown.Value;
-            //Определяем после какого числа итераций функция должна прекратить свою работу
+          
             int Iterations = (int)f1.eterationJuliaNumericUpDown.Value;
 
-            //выбираем несколько значений константы С, это определяет форму фрактала         Жюлиа
             iReal = -0.70176;
             iImag = -0.3842;
 
-            //"перебираем" каждый пиксель
+  
             for (int x = 0; x < pictureBox1.Width; x++)
                 for (int y = 0; y < pictureBox1.Height; y++)
                 {
-
+                  
                     newReal = 1.5 * (x - pictureBox1.Width / 2) / (0.5 * zoom * pictureBox1.Width);
                     newImag = (y - pictureBox1.Height / 2) / (0.5 * zoom * pictureBox1.Height);
 
+                 
                     int i;
-                    
+
+                 
                     for (i = 0; i < Iterations; i++)
                     {
 
+                   
                         oldReal = newReal;
                         oldImag = newImag;
 
-
+                     
                         newReal = oldReal * oldReal - oldImag * oldImag + iReal;
                         newImag = 2 * oldReal * oldImag + iImag;
 
-
+                   
                         if ((newReal * newReal + newImag * newImag) > 4) break;
                     }
                     int Red = (i * 9) % 255;
                     int Green = (i * 9) % 255;
                     int Blue = (i * 9) % 255;
-
+                    //определяем цвета
                     if (f1.greenCheckBox.Checked && f1.RedCheckBox.Checked && f1.BlueCheckBox.Checked) //red+green+blue
                     {
                         pen.Color = Color.FromArgb(255, Red, Green, Blue);
@@ -162,7 +162,7 @@ namespace Fractals
                     }
 
                     else { MessageBox.Show("Необходимо выбрать хотя бы один цвет."); f1.ShowDialog(); }
-                    //рисуем пиксель
+                 
                     g.DrawRectangle(pen, x, y, 1, 1);
                 }
         }
